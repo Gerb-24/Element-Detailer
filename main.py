@@ -1,17 +1,16 @@
 from src.PyVMF import *
+import os
 import numpy as np
 
-prototypeVMF = load_vmf("umon_ws_prototype.vmf")
-toBeDetailedVMF = load_vmf("umon_ws_test.vmf")
-detailedVMF = new_vmf()
-texture = "CUSTOMDEV/DEV_MEASUREWALL01BLU"
+class ElementToDetail:
+    def __init__( self, prototypeVMF: str, texture: str, method="side" ):
+        self.prototypeName = os.path.basename(prototypeVMF)
+        self.prototypeVMF = load_vmf(prototypeVMF)
+        self.texture = texture
+        self.method = method
 
-def createDuplicateVMF(vmf):
-    duplicateVMF = new_vmf()
-    funcDetails = vmf.get_entities(include_solid_entities=True)
-    copiedFuncDetails = [funcDetail.copy() for funcDetail in funcDetails]
-    duplicateVMF.add_entities(*copiedFuncDetails)
-    return duplicateVMF
+    def asString(self):
+        return f"{self.prototypeName} || {self.method} || {self.texture}"
 
 class VertexManipulationBox:
     def __init__( self, xMin, xMax, yMin, yMax, zMin, zMax ):
@@ -27,7 +26,14 @@ class VertexManipulationBox:
                 verticesInBox.append( vertex )
         return verticesInBox
 
-def getDimensionsOfSolid( solid ):
+def createDuplicateVMF(vmf: VMF):
+    duplicateVMF = new_vmf()
+    funcDetails = vmf.get_entities(include_solid_entities=True)
+    copiedFuncDetails = [funcDetail.copy() for funcDetail in funcDetails]
+    duplicateVMF.add_entities(*copiedFuncDetails)
+    return duplicateVMF
+
+def getDimensionsOfSolid( solid: Solid ):
     allVertices = solid.get_all_vertices()
     xMin = min([ vertex.x for vertex in allVertices ])
     yMin = min([ vertex.y for vertex in allVertices ])
@@ -37,8 +43,8 @@ def getDimensionsOfSolid( solid ):
     zMax = max([ vertex.z for vertex in allVertices ])
     return xMin, xMax, yMin, yMax, zMin, zMax
 
-def getOrientationOfSolid( solid ):
-    texturedSide = solid.get_texture_sides(texture)[0]
+def getOrientationOfSolid( solid: Solid, texture: str ):
+    texturedSide = solid.get_texture_sides( texture )[0]
     texturedSideVertices = texturedSide.get_vertices()
     xMin, xMax, yMin, yMax, _, _ = getDimensionsOfSolid( solid )
     if all( vertex.y == yMin for vertex in texturedSideVertices ):
@@ -49,8 +55,16 @@ def getOrientationOfSolid( solid ):
         return "y"
     if all( vertex.x == xMin for vertex in texturedSideVertices ):
         return "-x"
+    else:
+        return None
 
-def rotateSolidAroundZAxis(solid: Solid, deg):
+def checkIfTop( solid: Solid, texture: str ):
+    texturedSide = solid.get_texture_sides( texture )[0]
+    texturedSideVertices = texturedSide.get_vertices()
+    _, _, _, _, _, zMax = getDimensionsOfSolid( solid )
+    return all( vertex.z == zMax for vertex in texturedSideVertices )
+
+def rotateSolidAroundZAxis(solid: Solid, deg: int):
     solid.rotate_z(Vertex( 0, 0, 0), deg )
     rad = deg/360*2*np.pi
     rotMat = np.array([[np.cos(rad), -np.sin(rad), 0], [np.sin(rad), np.cos(rad), 0], [0, 0, 1]])
@@ -63,21 +77,27 @@ def rotateSolidAroundZAxis(solid: Solid, deg):
         vaxisArray = rotMat.dot(vaxisArray)
         side.vaxis.x, side.vaxis.y, side.vaxis.z = str(vaxisArray[0]), str(vaxisArray[1]), str(vaxisArray[2])
 
+def movePrototypeToSolid( solid: Solid, prototypeVMF: VMF, texture: str, method="side" ):
 
-def movePrototypeToSolid( solid, prototypeVMF ):
+    prototypeDuplicate = createDuplicateVMF( prototypeVMF )
 
-    prototypeDuplicate = createDuplicateVMF(prototypeVMF)
-    orientationOfSolid = getOrientationOfSolid( solid )
+    if method == "side":
+        orientationOfSolid = getOrientationOfSolid( solid, texture )
+        if orientationOfSolid is None:
+            return None
 
-    orientationToRotationDict = {
-        "-y": 0,
-        "x": 90,
-        "y": 180,
-        "-x":270,
-    }
+        orientationToRotationDict = {
+            "-y": 0,
+            "x": 90,
+            "y": 180,
+            "-x":270,
+        }
 
-    for solidToRotate in prototypeDuplicate.get_solids():
-        rotateSolidAroundZAxis( solidToRotate, orientationToRotationDict[orientationOfSolid] )
+        for solidToRotate in prototypeDuplicate.get_solids():
+            rotateSolidAroundZAxis( solidToRotate, orientationToRotationDict[orientationOfSolid] )
+    elif method == "top":
+        if not checkIfTop( solid, texture ):
+            return None
 
     topVertexManipulationBox = VertexManipulationBox( -512, 512, -512, 512, 0, 512)
     bottomVertexManipulationBox = VertexManipulationBox( -512, 512, -512, 512, -512, 0)
@@ -93,10 +113,7 @@ def movePrototypeToSolid( solid, prototypeVMF ):
     startVertices = startVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
     endVertices = endVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
 
-
-    # note that the size of the prototype is 2*384^3
-
-    # set to zero
+    # set to zero, note that the size of the prototype is 2*384^3
     for vertex in topVertices:
         vertex.move(0, 0, -384)
     for vertex in backVertices:
@@ -113,7 +130,7 @@ def movePrototypeToSolid( solid, prototypeVMF ):
     xMin, xMax, yMin, yMax, zMin, zMax = getDimensionsOfSolid( solid )
 
     for vertex in topVertices:
-        vertex.move(0, 0, 1024)
+        vertex.move(0, 0, zMax)
     for vertex in backVertices:
         vertex.move(0, yMax, 0)
     for vertex in startVertices:
@@ -127,8 +144,36 @@ def movePrototypeToSolid( solid, prototypeVMF ):
 
     return prototypeDuplicate
 
-for solid in toBeDetailedVMF.get_solids():
-    movedPrototypeVMF = movePrototypeToSolid( solid , prototypeVMF )
-    funcDetails = movedPrototypeVMF.get_entities(include_solid_entities=True)
-    detailedVMF.add_entities(*funcDetails)
-detailedVMF.export("umon_ws_prototype_duplicate.vmf")
+def detailElements( prototypeVMF: VMF, toBeDetailedVMF: VMF, detailedVMF: VMF, texture: str, method="side" ):
+    for solid in toBeDetailedVMF.get_solids():
+        if solid.has_texture( texture ):
+            movedPrototypeVMF = movePrototypeToSolid( solid , prototypeVMF, texture, method=method )
+            if movedPrototypeVMF is None:
+                continue
+            funcDetails = movedPrototypeVMF.get_entities(include_solid_entities=True)
+            detailedVMF.add_entities(*funcDetails)
+    return detailedVMF
+
+def detailMultipleElements(fileName: str, elementToDetailList: List):
+
+    toBeDetailedVMF = load_vmf(fileName)
+    detailedVMF = new_vmf()
+    for element in elementToDetailList:
+        detailElements(element.prototypeVMF, toBeDetailedVMF, detailedVMF, element.texture, element.method)
+
+    withoutExtension = os.path.splitext(fileName)[0]
+    detailedVMF.export(f"{withoutExtension}_detailed.vmf")
+
+# wsPrototypeVMF = load_vmf("umon_ws_prototype.vmf")
+# ssPrototypeVMF = load_vmf("umon_ss_prototype.vmf")
+#
+# wsTexture = "CUSTOMDEV/DEV_MEASUREWALL01BLU"
+# ssTexture = "CUSTOMDEV/DEV_MEASUREWALL01BLU"
+#
+# wsSettings = ElementToDetail( wsPrototypeVMF, wsTexture, method="side")
+# ssSettings = ElementToDetail( ssPrototypeVMF, ssTexture, method="top")
+#
+# elementToDetailList = [wsSettings, ssSettings]
+# fileName = "umon_ws_test.vmf"
+#
+# detailMultipleElements(fileName, elementToDetailList)
