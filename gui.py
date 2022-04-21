@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QText
 from PyQt6 import uic, QtCore
 from PyQt6.QtGui import QIcon
 from main import detailMultipleElements, ElementToDetail
-from filemanagement import load_file
+from filemanagement import load_file, save_settings, load_settings
 
 
 class MyApp(QWidget):
@@ -19,10 +19,13 @@ class MyApp(QWidget):
         self.fileName = ""
         self.elementToDetailList = []
 
+
         # saving variables
         self.dirName = ""
         self.texvar = {}
         self.texvarInverse = {}
+
+
 
         self.prototypeVMF = ""
         self.method = ""
@@ -83,14 +86,6 @@ class MyApp(QWidget):
                             "tex": self.textureLe_7,
                             "rmv": self.removeBtn_7,
                         },
-
-
-                        {
-                            "prt": self.prototypeLe_8,
-                            "mtd": self.methodLe_8,
-                            "tex": self.textureLe_8,
-                            "rmv": self.removeBtn_8,
-                        },
                     ]
 
         with open("cssfiles/removestyle.css", "r") as f:
@@ -105,6 +100,7 @@ class MyApp(QWidget):
         self.fileNameBtn.clicked.connect(lambda: load_file(self, type="fileName"))
         self.prototypeBtn.clicked.connect(lambda: load_file(self, type="prototype"))
         self.loadTexVarBtn.clicked.connect(lambda: load_file(self, type="texvar") )
+        self.settingsBtn.clicked.connect(lambda: save_settings(self))
 
         self.sideBtn.clicked.connect(lambda: self.setMethod("side"))
         self.topBtn.clicked.connect(lambda: self.setMethod("top"))
@@ -115,6 +111,9 @@ class MyApp(QWidget):
         self.textureLe.textChanged.connect(lambda: self.setTexture(self.textureLe.text()))
 
         self.compileBtn.clicked.connect( self.compile )
+
+        load_settings( self )
+        self.rerenderList()
 
     def setTexture( self, texture ):
         self.texture = texture

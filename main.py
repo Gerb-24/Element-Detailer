@@ -4,13 +4,14 @@ import numpy as np
 
 class ElementToDetail:
     def __init__( self, prototypeVMF: str, texture: str, method="side" ):
+        self.fileName = prototypeVMF
         self.prototypeName = os.path.basename(prototypeVMF)
         self.prototypeVMF = load_vmf(prototypeVMF)
         self.texture = texture
         self.method = method
 
-    def asString(self):
-        return f"{self.prototypeName} || {self.method} || {self.texture}"
+    def serialize(self):
+        return [ self.fileName ,self.texture, self.method ]
 
 class VertexManipulationBox:
     def __init__( self, xMin, xMax, yMin, yMax, zMin, zMax ):

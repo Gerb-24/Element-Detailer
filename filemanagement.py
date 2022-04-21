@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QFileDialog
+from main import ElementToDetail
 import ast
 import os
 import json
@@ -23,6 +24,7 @@ def load_file(self, type="fileName"):
             self.texvar = new_data
             self.texvarInverse = new_data_inv
             self.loadTexVarBtn.setText("Texture Variables Loaded")
+            self.loadTexVarBtn.setStyleSheet( open('cssfiles/loadedstyle.css', 'r').read() )
 
 # def save_vmf_dir(self, filepath):
 #     dirName = os.path.dirname(filepath)
@@ -36,19 +38,26 @@ def load_file(self, type="fileName"):
 #         text.writelines(str(save_tex_dict))
 #         text.close()
 #
-# def save_tex(self):
-#     with open("settings.txt", "w") as text:
-#         save_tex_dict = {
-#         'dirName':      self.dirName,
-#         'topTexture':   self.topTexture,
-#         'sideTexture':  self.sideTexture,
-#         }
-#         text.writelines(str(save_tex_dict))
-#         text.close()
-#
-# def load_tex(self):
-#     with open("settings.txt", "r") as text:
-#         load_tex_dict = ast.literal_eval(text.readline())
-#         self.dirName = load_tex_dict["dirName"]
-#         self.topTextureLe.setText(load_tex_dict["topTexture"])
-#         self.sideTextureLe.setText(load_tex_dict["sideTexture"])
+def save_settings(self):
+    elementToDetailListSerialized = [ element.serialize() for element in self.elementToDetailList ]
+    save_data = {
+    'dirName':                          self.dirName,
+    'texvar':                           self.texvar,
+    'elementToDetailListSerialized':    elementToDetailListSerialized
+    }
+    json_data = json.dumps( save_data, indent=2 )
+    with open("settings.json", "w") as f:
+        f.write(json_data)
+
+
+def load_settings(self):
+    with open("settings.json", "r") as f:
+        load_data = json.loads(f.read())
+    self.dirName = load_data["dirName"]
+    self.texvar = load_data["texvar"]
+    self.texvarInverse = { element[1]: element[0] for element in load_data["texvar"].items()}
+    if self.texvar != {}:
+        self.loadTexVarBtn.setText("Texture Variables Loaded")
+        self.loadTexVarBtn.setStyleSheet( open('cssfiles/loadedstyle.css', 'r').read() )
+    elementToDetailListSerialized = load_data["elementToDetailListSerialized"]
+    self.elementToDetailList = [ ElementToDetail(*serializedElement) for serializedElement in elementToDetailListSerialized ]
