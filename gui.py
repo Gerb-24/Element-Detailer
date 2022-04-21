@@ -157,7 +157,6 @@ class MyApp(QWidget):
             # clear variables
             self.prototypeVMF = ""
             self.texture = ""
-            self.method = ""
             self.prototypeLe.setText("")
             self.textureLe.setText("")
         except Exception:

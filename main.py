@@ -27,6 +27,17 @@ class VertexManipulationBox:
                 verticesInBox.append( vertex )
         return verticesInBox
 
+def removeSolids(vmf: VMF, solidsToRemove):
+    solidsNotToRemove = []
+    newVmf = new_vmf()
+    entities = vmf.get_entities(include_solid_entities=True)
+    for solid in vmf.get_solids():
+        if solid not in solidsToRemove:
+            solidsNotToRemove.append(solid)
+    newVmf.add_solids(*solidsNotToRemove)
+    newVmf.add_entities(*entities)
+    return newVmf
+
 def createDuplicateVMF(vmf: VMF):
     duplicateVMF = new_vmf()
     funcDetails = vmf.get_entities(include_solid_entities=True)
@@ -146,6 +157,7 @@ def movePrototypeToSolid( solid: Solid, prototypeVMF: VMF, texture: str, method=
     return prototypeDuplicate
 
 def detailElements( prototypeVMF: VMF, toBeDetailedVMF: VMF, detailedVMF: VMF, texture: str, method="side" ):
+    solids_to_remove = []
     for solid in toBeDetailedVMF.get_solids():
         if solid.has_texture( texture ):
             movedPrototypeVMF = movePrototypeToSolid( solid , prototypeVMF, texture, method=method )
@@ -153,28 +165,15 @@ def detailElements( prototypeVMF: VMF, toBeDetailedVMF: VMF, detailedVMF: VMF, t
                 continue
             funcDetails = movedPrototypeVMF.get_entities(include_solid_entities=True)
             detailedVMF.add_entities(*funcDetails)
-    return detailedVMF
+            solids_to_remove.append(solid)
+    return solids_to_remove
 
 def detailMultipleElements(fileName: str, elementToDetailList: List):
-
+    solids_to_remove = []
     toBeDetailedVMF = load_vmf(fileName)
-    detailedVMF = new_vmf()
+    detailedVMF = toBeDetailedVMF
     for element in elementToDetailList:
-        detailElements(element.prototypeVMF, toBeDetailedVMF, detailedVMF, element.texture, element.method)
-
+        solids_to_remove.extend( detailElements(element.prototypeVMF, toBeDetailedVMF, detailedVMF, element.texture, element.method) ) # This also does edit a lot of things
+    detailedVMF = removeSolids(detailedVMF, solids_to_remove)
     withoutExtension = os.path.splitext(fileName)[0]
     detailedVMF.export(f"{withoutExtension}_detailed.vmf")
-
-# wsPrototypeVMF = load_vmf("umon_ws_prototype.vmf")
-# ssPrototypeVMF = load_vmf("umon_ss_prototype.vmf")
-#
-# wsTexture = "CUSTOMDEV/DEV_MEASUREWALL01BLU"
-# ssTexture = "CUSTOMDEV/DEV_MEASUREWALL01BLU"
-#
-# wsSettings = ElementToDetail( wsPrototypeVMF, wsTexture, method="side")
-# ssSettings = ElementToDetail( ssPrototypeVMF, ssTexture, method="top")
-#
-# elementToDetailList = [wsSettings, ssSettings]
-# fileName = "umon_ws_test.vmf"
-#
-# detailMultipleElements(fileName, elementToDetailList)
