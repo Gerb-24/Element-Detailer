@@ -1,22 +1,6 @@
 {
-  "dirName": "",
-  "texvar": {
-    "green": "orange_dev/dev_measurewall_green03",
-    "white": "dev/reflectivity_70",
-    "blue": "CUSTOMDEV/DEV_MEASUREWALL01BLU",
-    "red": "CUSTOMDEV/DEV_MEASUREWALL01RED",
-    "grey": "dev/dev_blendmeasure2"
-  },
-  "elementToDetailListSerialized": [
-    [
-      "C:/Users/Gerben Lamers/Documents/Atomprojects/pyvmf_projects/Element-Detailer/test_vmfs/umon_ws_prototype.vmf",
-      "dev/reflectivity_70",
-      "side"
-    ],
-    [
-      "C:/Users/Gerben Lamers/Documents/Atomprojects/pyvmf_projects/Element-Detailer/test_vmfs/umon_ss_prototype.vmf",
-      "orange_dev/dev_measurewall_green03",
-      "top"
-    ]
+  "fileName": "",
+  "textureVariableFileName": "",
+  "elementToDetailList": [
   ]
 }

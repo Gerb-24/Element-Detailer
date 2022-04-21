@@ -1,10 +1,12 @@
 import sys
+import os
 import traceback
 from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QTextEdit, QVBoxLayout
 from PyQt6 import uic, QtCore
 from PyQt6.QtGui import QIcon
 from main import detailMultipleElements, ElementToDetail
 from filemanagement import load_file, save_settings, load_settings
+import json
 
 
 class MyApp(QWidget):
@@ -22,8 +24,7 @@ class MyApp(QWidget):
 
         # saving variables
         self.dirName = ""
-        self.texvar = {}
-        self.texvarInverse = {}
+        self.textureVariableFileName = ""
 
 
 
@@ -114,6 +115,7 @@ class MyApp(QWidget):
 
         load_settings( self )
         self.rerenderList()
+        self.fileNameLe.setText(os.path.basename(self.fileName))
 
     def setTexture( self, texture ):
         self.texture = texture
@@ -146,11 +148,13 @@ class MyApp(QWidget):
 
     def addToList( self ):
         try:
-            try:
-                actual_texture = self.texvar[self.texture]
-            except Exception:
-                actual_texture = self.texture
-            element = ElementToDetail(self.prototypeVMF, actual_texture, method=self.method)
+
+            element = {
+                "prt": self.prototypeVMF,
+                "tex": self.texture,
+                "mtd": self.method,
+            }
+            # element = ElementToDetail(self.prototypeVMF, actual_texture, method=self.method)
             self.elementToDetailList.append(element)
             self.rerenderList()
 
@@ -164,7 +168,19 @@ class MyApp(QWidget):
 
     def compile( self ):
         try:
-            detailMultipleElements(self.fileName, self.elementToDetailList)
+            # First we will need to change the texture variable into the actual texture
+            preElementToDetailList = self.elementToDetailList.copy()
+            with open(self.textureVariableFileName, "r") as f:
+                textureVariables = json.loads(f.read())
+            textureVariablesDict = { elem["var"]: elem["tex"] for elem in textureVariables }
+            for elem in preElementToDetailList:
+                texture = elem["tex"]
+                try:
+                    actual_texture = textureVariablesDict[elem["tex"]]
+                except Exception:
+                    actual_texture = elem["tex"]
+                elem["tex"] = actual_texture
+            detailMultipleElements(self.fileName, preElementToDetailList)
             self.compileBtn.setText("Done")
         except Exception:
             print(traceback.format_exc())
@@ -175,12 +191,9 @@ class MyApp(QWidget):
         mtd.setEnabled(True)
         tex.setEnabled(True)
         rmv.setEnabled(True)
-        prt.setText(element.prototypeName)
-        mtd.setText(element.method)
-        try:
-            tex.setText(self.texvarInverse[element.texture])
-        except Exception:
-            tex.setText(element.texture)
+        prt.setText(os.path.basename(element["prt"]))
+        mtd.setText(element["mtd"])
+        tex.setText(element["tex"])
         rmv.setText("remove")
         rmv.clicked.connect(lambda: self.removeItem(index))
 
@@ -206,7 +219,6 @@ class MyApp(QWidget):
         # Rerender
         for index, element in enumerate(self.elementToDetailList):
             self.createItem( index, element )
-
 
 
 

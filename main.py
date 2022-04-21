@@ -11,7 +11,7 @@ class ElementToDetail:
         self.method = method
 
     def serialize(self):
-        return [ self.fileName ,self.texture, self.method ]
+        return { "prt": self.fileName, "tex": self.texture, "mtd": self.method }
 
 class VertexManipulationBox:
     def __init__( self, xMin, xMax, yMin, yMax, zMin, zMax ):
@@ -168,7 +168,8 @@ def detailElements( prototypeVMF: VMF, toBeDetailedVMF: VMF, detailedVMF: VMF, t
             solids_to_remove.append(solid)
     return solids_to_remove
 
-def detailMultipleElements(fileName: str, elementToDetailList: List):
+def detailMultipleElements(fileName: str, preElementToDetailList: List):
+    elementToDetailList = [ ElementToDetail(elem["prt"], elem["tex"], method=elem["mtd"] ) for elem in preElementToDetailList ]
     solids_to_remove = []
     toBeDetailedVMF = load_vmf(fileName)
     detailedVMF = toBeDetailedVMF
