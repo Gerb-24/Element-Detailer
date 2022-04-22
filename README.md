@@ -1,5 +1,5 @@
-# Element-Detailer
-A small application to detail jump elements by using a prototype vmf.
+![githubtitle](https://user-images.githubusercontent.com/61150608/164681591-5dac7223-fb4e-4342-ae0d-3e1bd81bfd41.png)
+A small application to detail jump elements by using a prototype vmf. This is build using [PyVMF](https://github.com/GorangeNinja/PyVMF) by GorangeNinja.
 
 ## Downloads
 Latest Release:
