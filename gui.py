@@ -4,9 +4,10 @@ import traceback
 from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QTextEdit, QVBoxLayout
 from PyQt6 import uic, QtCore
 from PyQt6.QtGui import QIcon
-from main import detailMultipleElements, ElementToDetail
+from main import detailMultipleElements
 from filemanagement import load_file, save_settings, load_settings
 import json
+from copy import deepcopy
 
 
 class MyApp(QWidget):
@@ -14,7 +15,7 @@ class MyApp(QWidget):
         super().__init__()
         uic.loadUi('gui.ui', self)
         self.setWindowTitle("Element Detailer")
-        self.setWindowIcon(QIcon('appicon.ico'))
+        self.setWindowIcon(QIcon('ui_images/appicon.ico'))
         self.setFixedSize(self.size())
 
         # core variables
@@ -169,7 +170,7 @@ class MyApp(QWidget):
     def compile( self ):
         try:
             # First we will need to change the texture variable into the actual texture
-            preElementToDetailList = self.elementToDetailList.copy()
+            preElementToDetailList = deepcopy(self.elementToDetailList)
             with open(self.textureVariableFileName, "r") as f:
                 textureVariables = json.loads(f.read())
             textureVariablesDict = { elem["var"]: elem["tex"] for elem in textureVariables }

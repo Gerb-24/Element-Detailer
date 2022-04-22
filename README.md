@@ -1,5 +1,5 @@
 # Element-Detailer
- detail jump elements by a prototype
+ detail jump elements by using a prototype vmf
 
 ## Licenses
 The GUI part of this project, i.e. gui.py, filemanagement.py etc use the GPLv3 License as they use PyQt6
