@@ -42,3 +42,15 @@ def load_settings(self):
         self.loadTexVarBtn.setText("Texture Variables Loaded")
         self.loadTexVarBtn.setStyleSheet( open('cssfiles/loadedstyle.css', 'r').read() )
     self.elementToDetailList = load_data["elementToDetailList"]
+
+def new_file(self):
+    filepath, _ = QFileDialog.getSaveFileName(self, "Save File", "", "VMF(*.vmf)")
+    if filepath == "":
+        return
+    prototype_filepath = f'prototypes/{ self.method }_prototype.vmf'
+    with open(prototype_filepath, 'r') as f:
+        prototype_text = f.read()
+    with open(filepath, 'w') as f:
+        f.write(prototype_text)
+    self.prototypeVMF = filepath
+    self.prototypeLe.setText(os.path.basename(filepath))

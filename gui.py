@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QText
 from PyQt6 import uic, QtCore
 from PyQt6.QtGui import QIcon
 from main import detailMultipleElements
-from filemanagement import load_file, save_settings, load_settings
+from filemanagement import load_file, save_settings, load_settings, new_file
 import json
 from copy import deepcopy
 
@@ -28,9 +28,14 @@ class MyApp(QWidget):
         self.textureVariableFileName = ""
 
 
-
         self.prototypeVMF = ""
         self.method = ""
+        self.methodBtnDict = {
+            "top":              self.topBtn,
+            "side":             self.sideBtn,
+            "inside_corner":    self.insideBtn,
+            "outside_corner":   self.outsideBtn,
+        }
         self.texture = ""
 
         self.data = [
@@ -103,9 +108,12 @@ class MyApp(QWidget):
         self.prototypeBtn.clicked.connect(lambda: load_file(self, type="prototype"))
         self.loadTexVarBtn.clicked.connect(lambda: load_file(self, type="texvar") )
         self.settingsBtn.clicked.connect(lambda: save_settings(self))
+        self.newPrototypeBtn.clicked.connect(lambda: new_file(self))
 
         self.sideBtn.clicked.connect(lambda: self.setMethod("side"))
         self.topBtn.clicked.connect(lambda: self.setMethod("top"))
+        self.insideBtn.clicked.connect(lambda: self.setMethod("inside_corner"))
+        self.outsideBtn.clicked.connect(lambda: self.setMethod("outside_corner"))
 
         self.addBtn.clicked.connect( self.addToList )
 
@@ -135,17 +143,22 @@ class MyApp(QWidget):
         '''
         onStyle = '''
         QPushButton {
-            background-color: #3498db;
+            background-color: #f1c40f;
             border-radius: 5px;
+            color: #34495e;
         }
         '''
+        methodStyleDict = {
+            "top":              offStyle,
+            "side":             offStyle,
+            "inside_corner":    offStyle,
+            "outside_corner":   offStyle,
+        }
 
-        if method == "side":
-            self.topBtn.setStyleSheet(offStyle)
-            self.sideBtn.setStyleSheet(onStyle)
-        elif method == "top":
-            self.sideBtn.setStyleSheet(offStyle)
-            self.topBtn.setStyleSheet(onStyle)
+        methodStyleDict[method] = onStyle
+        for key in self.methodBtnDict:
+            self.methodBtnDict[key].setStyleSheet(methodStyleDict[key])
+
 
     def addToList( self ):
         try:
