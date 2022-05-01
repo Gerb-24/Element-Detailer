@@ -384,7 +384,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="insideBtn">
+  <widget class="QPushButton" name="bigsideBtn">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -403,10 +403,10 @@
     </font>
    </property>
    <property name="text">
-    <string>Inside</string>
+    <string>Bigside</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="outsideBtn">
+  <widget class="QPushButton" name="cornerBtn">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -425,7 +425,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Outside</string>
+    <string>Corner</string>
    </property>
   </widget>
   <widget class="QPushButton" name="newPrototypeBtn">

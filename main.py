@@ -1,48 +1,37 @@
 from src.PyVMF import *
-import os
 import numpy as np
 
-class ElementToDetail:
-    def __init__( self, prototypeVMF: str, texture: str, method="side" ):
-        self.fileName = prototypeVMF
-        self.prototypeName = os.path.basename(prototypeVMF)
-        self.prototypeVMF = load_vmf(prototypeVMF)
-        self.texture = texture
-        self.method = method
-
-    def serialize(self):
-        return { "prt": self.fileName, "tex": self.texture, "mtd": self.method }
-
-class VertexManipulationBox:
-    def __init__( self, xMin, xMax, yMin, yMax, zMin, zMax ):
-        self.xMin, self.xMax, self.yMin, self.yMax, self.zMin, self.zMax = xMin, xMax, yMin, yMax, zMin, zMax
-
-    def getVerticesInBox( self, vmf ):
-        allVertices = []
-        for solid in vmf.get_solids():
-            allVertices.extend(solid.get_all_vertices())
-        verticesInBox = []
-        for vertex in allVertices:
-            if self.xMin < vertex.x < self.xMax and self.yMin < vertex.y < self.yMax and self.zMin < vertex.z < self.zMax:
-                verticesInBox.append( vertex )
-        return verticesInBox
-
 def removeSolids(vmf: VMF, solidsToRemove):
-    solidsNotToRemove = []
-    newVmf = new_vmf()
-    entities = vmf.get_entities(include_solid_entities=True)
-    for solid in vmf.get_solids():
-        if solid not in solidsToRemove:
-            solidsNotToRemove.append(solid)
-    newVmf.add_solids(*solidsNotToRemove)
-    newVmf.add_entities(*entities)
-    return newVmf
+    vmf.world.solids = [ solid for solid in vmf.world.solids if solid not in solidsToRemove ]
+    return vmf
+
+def addVMF( vmf: VMF, vmf_to_add: VMF ):
+    total_vmf = createDuplicateVMF( vmf )
+
+    #add solids
+    solids = vmf_to_add.get_solids( include_solid_entities=False )
+    copiedSolids = [ solid.copy() for solid in solids ]
+    total_vmf.add_solids(*copiedSolids)
+
+    # add entities
+    entities = vmf_to_add.get_entities( include_solid_entities=True )
+    copiedEntities = [ entity.copy() for entity in entities ]
+    total_vmf.add_entities(*copiedEntities)
+
+    return total_vmf
 
 def createDuplicateVMF(vmf: VMF):
     duplicateVMF = new_vmf()
-    funcDetails = vmf.get_entities(include_solid_entities=True)
-    copiedFuncDetails = [funcDetail.copy() for funcDetail in funcDetails]
-    duplicateVMF.add_entities(*copiedFuncDetails)
+
+    # add solids
+    solids = vmf.get_solids( include_solid_entities=False )
+    copiedSolids = [ solid.copy() for solid in solids ]
+    duplicateVMF.add_solids(*copiedSolids)
+
+    # add entities
+    entities = vmf.get_entities( include_solid_entities=True )
+    copiedEntities = [ entity.copy() for entity in entities ]
+    duplicateVMF.add_entities(*copiedEntities)
     return duplicateVMF
 
 def getDimensionsOfSolid( solid: Solid ):
@@ -89,92 +78,26 @@ def rotateSolidAroundZAxis(solid: Solid, deg: int):
         vaxisArray = rotMat.dot(vaxisArray)
         side.vaxis.x, side.vaxis.y, side.vaxis.z = str(vaxisArray[0]), str(vaxisArray[1]), str(vaxisArray[2])
 
-def movePrototypeToSolid( solid: Solid, prototypeVMF: VMF, texture: str, method="side" ):
+def getOrientationOfSide( solid: Solid, side: Side ):
+    sideVertices = side.get_vertices()
+    xMin, xMax, yMin, yMax, _, _ = getDimensionsOfSolid( solid )
+    if all( vertex.y == yMin for vertex in sideVertices ):
+        return "-y"
+    if all( vertex.x == xMax for vertex in sideVertices ):
+        return "x"
+    if all( vertex.y == yMax for vertex in sideVertices ):
+        return "y"
+    if all( vertex.x == xMin for vertex in sideVertices ):
+        return "-x"
+    else:
+        return None
 
-    prototypeDuplicate = createDuplicateVMF( prototypeVMF )
-
-    if method == "side":
-        orientationOfSolid = getOrientationOfSolid( solid, texture )
-        if orientationOfSolid is None:
-            return None
-
-        orientationToRotationDict = {
-            "-y": 0,
-            "x": 90,
-            "y": 180,
-            "-x":270,
-        }
-
-        for solidToRotate in prototypeDuplicate.get_solids():
-            rotateSolidAroundZAxis( solidToRotate, orientationToRotationDict[orientationOfSolid] )
-    elif method == "top":
-        if not checkIfTop( solid, texture ):
-            return None
-
-    topVertexManipulationBox = VertexManipulationBox( -512, 512, -512, 512, 0, 512)
-    bottomVertexManipulationBox = VertexManipulationBox( -512, 512, -512, 512, -512, 0)
-    backVertexManipulationBox = VertexManipulationBox( -512, 512, 0, 512, -512, 512)
-    frontVertexManipulationBox = VertexManipulationBox( -512, 512, -512, 0, -512, 512 )
-    startVertexManipulationBox = VertexManipulationBox( 0, 512, -512, 512, -512, 512)
-    endVertexManipulationBox = VertexManipulationBox( -512, 0, -512, 512, -512, 512)
-
-    topVertices = topVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
-    bottomVertices = bottomVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
-    backVertices = backVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
-    frontVertices = frontVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
-    startVertices = startVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
-    endVertices = endVertexManipulationBox.getVerticesInBox(prototypeDuplicate)
-
-    # set to zero, note that the size of the prototype is 2*384^3
-    for vertex in topVertices:
-        vertex.move(0, 0, -384)
-    for vertex in backVertices:
-        vertex.move(0, -384, 0)
-    for vertex in startVertices:
-        vertex.move(-384, 0, 0)
-    for vertex in bottomVertices:
-        vertex.move(0, 0, 384)
-    for vertex in frontVertices:
-        vertex.move(0, 384, 0)
-    for vertex in endVertices:
-        vertex.move(384, 0, 0)
-
-    xMin, xMax, yMin, yMax, zMin, zMax = getDimensionsOfSolid( solid )
-
-    for vertex in topVertices:
-        vertex.move(0, 0, zMax)
-    for vertex in backVertices:
-        vertex.move(0, yMax, 0)
-    for vertex in startVertices:
-        vertex.move(xMax, 0, 0)
-    for vertex in bottomVertices:
-        vertex.move(0, 0, zMin)
-    for vertex in frontVertices:
-        vertex.move(0, yMin, 0)
-    for vertex in endVertices:
-        vertex.move(xMin, 0, 0)
-
-    return prototypeDuplicate
-
-def detailElements( prototypeVMF: VMF, toBeDetailedVMF: VMF, detailedVMF: VMF, texture: str, method="side" ):
-    solids_to_remove = []
-    for solid in toBeDetailedVMF.get_solids():
-        if solid.has_texture( texture ):
-            movedPrototypeVMF = movePrototypeToSolid( solid , prototypeVMF, texture, method=method )
-            if movedPrototypeVMF is None:
-                continue
-            funcDetails = movedPrototypeVMF.get_entities(include_solid_entities=True)
-            detailedVMF.add_entities(*funcDetails)
-            solids_to_remove.append(solid)
-    return solids_to_remove
-
-def detailMultipleElements(fileName: str, preElementToDetailList: List):
-    elementToDetailList = [ ElementToDetail(elem["prt"], elem["tex"], method=elem["mtd"] ) for elem in preElementToDetailList ]
-    solids_to_remove = []
-    toBeDetailedVMF = load_vmf(fileName)
-    detailedVMF = toBeDetailedVMF
-    for element in elementToDetailList:
-        solids_to_remove.extend( detailElements(element.prototypeVMF, toBeDetailedVMF, detailedVMF, element.texture, element.method) ) # This also does edit a lot of things
-    detailedVMF = removeSolids(detailedVMF, solids_to_remove)
-    withoutExtension = os.path.splitext(fileName)[0]
-    detailedVMF.export(f"{withoutExtension}_detailed.vmf")
+def getDimensionsOfSide( side: Side ):
+    allVertices = side.get_vertices()
+    xMin = min([ vertex.x for vertex in allVertices ])
+    yMin = min([ vertex.y for vertex in allVertices ])
+    zMin = min([ vertex.z for vertex in allVertices ])
+    xMax = max([ vertex.x for vertex in allVertices ])
+    yMax = max([ vertex.y for vertex in allVertices ])
+    zMax = max([ vertex.z for vertex in allVertices ])
+    return xMin, xMax, yMin, yMax, zMin, zMax

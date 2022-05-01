@@ -4,7 +4,7 @@ import traceback
 from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QTextEdit, QVBoxLayout
 from PyQt6 import uic, QtCore
 from PyQt6.QtGui import QIcon
-from main import detailMultipleElements
+from compile import detailMultipleElements
 from filemanagement import load_file, save_settings, load_settings, new_file
 import json
 from copy import deepcopy
@@ -33,8 +33,8 @@ class MyApp(QWidget):
         self.methodBtnDict = {
             "top":              self.topBtn,
             "side":             self.sideBtn,
-            "inside_corner":    self.insideBtn,
-            "outside_corner":   self.outsideBtn,
+            "bigside":          self.bigsideBtn,
+            "corner":           self.cornerBtn,
         }
         self.texture = ""
 
@@ -112,8 +112,8 @@ class MyApp(QWidget):
 
         self.sideBtn.clicked.connect(lambda: self.setMethod("side"))
         self.topBtn.clicked.connect(lambda: self.setMethod("top"))
-        self.insideBtn.clicked.connect(lambda: self.setMethod("inside_corner"))
-        self.outsideBtn.clicked.connect(lambda: self.setMethod("outside_corner"))
+        self.cornerBtn.clicked.connect(lambda: self.setMethod("corner"))
+        self.bigsideBtn.clicked.connect(lambda: self.setMethod("bigside"))
 
         self.addBtn.clicked.connect( self.addToList )
 
@@ -151,8 +151,8 @@ class MyApp(QWidget):
         methodStyleDict = {
             "top":              offStyle,
             "side":             offStyle,
-            "inside_corner":    offStyle,
-            "outside_corner":   offStyle,
+            "corner":           offStyle,
+            "bigside":          offStyle,
         }
 
         methodStyleDict[method] = onStyle

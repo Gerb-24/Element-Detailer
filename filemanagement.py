@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QFileDialog
-from main import ElementToDetail
+from classes import ElementToDetail
 import ast
 import os
 import json
