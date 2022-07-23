@@ -4,6 +4,7 @@ import numpy as np
 import os
 
 class PrototypeVertexManipulationBoxes:
+    '''instantiates VMBs for all directions, depending on the prototype'''
     def __init__( self, prototype='side' ):
         self.prototype = prototype
         self.boxes = self.createBoxesDict()
@@ -31,8 +32,24 @@ class PrototypeVertexManipulationBoxes:
             return prototypeDict
 
     def createVerticesInBoxDict( self, vmf: VMF ):
+        '''Creates a dictionary of lists of vertices that are contained in the given VMB'''
         verticesDict = { key: self.boxes[key].getVerticesInBox( vmf ) for key in self.boxes }
         return VerticesToManipulate( verticesDict, prototype=self.prototype )
+
+class VertexManipulationBox:
+    ''' a box that lets us manipulate the vertices in it'''
+    def __init__( self, xMin, xMax, yMin, yMax, zMin, zMax ):
+        self.xMin, self.xMax, self.yMin, self.yMax, self.zMin, self.zMax = xMin, xMax, yMin, yMax, zMin, zMax
+
+    def getVerticesInBox( self, vmf: VMF ):
+        allVertices = []
+        for solid in vmf.get_solids():
+            allVertices.extend( solid.get_all_vertices() )
+        verticesInBox = []
+        for vertex in allVertices:
+            if self.xMin < vertex.x < self.xMax and self.yMin < vertex.y < self.yMax and self.zMin < vertex.z < self.zMax:
+                verticesInBox.append( vertex )
+        return verticesInBox
 
 class VerticesToManipulate:
     def __init__( self, verticesDict, prototype='side' ):
@@ -56,7 +73,7 @@ class VerticesToManipulate:
                 for vertex in self.verticesDict[ direction ]:
                     vertex.move( *getMove( direction, -384 ) )
         if self.prototype == 'bigside':
-            # set to zero, note that the size of the prototype is 2*384^3
+            # set to zero, note that the size of the prototype is 2*768^3
             for direction in self.verticesDict:
                 for vertex in self.verticesDict[ direction ]:
                     vertex.move( *getMove( direction, -768 ) )
@@ -147,20 +164,6 @@ class ElementToDetail:
 
     def serialize(self):
         return { "prt": self.fileName, "tex": self.texture, "mtd": self.method }
-
-class VertexManipulationBox:
-    def __init__( self, xMin, xMax, yMin, yMax, zMin, zMax ):
-        self.xMin, self.xMax, self.yMin, self.yMax, self.zMin, self.zMax = xMin, xMax, yMin, yMax, zMin, zMax
-
-    def getVerticesInBox( self, vmf: VMF ):
-        allVertices = []
-        for solid in vmf.get_solids():
-            allVertices.extend( solid.get_all_vertices() )
-        verticesInBox = []
-        for vertex in allVertices:
-            if self.xMin < vertex.x < self.xMax and self.yMin < vertex.y < self.yMax and self.zMin < vertex.z < self.zMax:
-                verticesInBox.append( vertex )
-        return verticesInBox
 
 class SelectionBox:
     def __init__( self, xMin, xMax, yMin, yMax, zMin, zMax ):

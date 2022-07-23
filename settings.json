@@ -1,6 +1,5 @@
 {
-  "fileName": "",
-  "textureVariableFileName": "",
-  "elementToDetailList": [
-  ]
+  "fileName": "./test_vmfs/test.vmf",
+  "textureVariableFileName": "../texture_variables.json",
+  "edPath": "umon\\umon.ed"
 }

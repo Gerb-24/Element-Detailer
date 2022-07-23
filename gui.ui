@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>549</width>
-    <height>780</height>
+    <width>1080</width>
+    <height>682</height>
    </rect>
   </property>
   <property name="font">
@@ -71,8 +71,8 @@
   <widget class="QPushButton" name="addBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>300</y>
+     <x>550</x>
+     <y>230</y>
      <width>511</width>
      <height>31</height>
     </rect>
@@ -93,7 +93,7 @@
     <rect>
      <x>20</x>
      <y>80</y>
-     <width>511</width>
+     <width>1041</width>
      <height>21</height>
     </rect>
    </property>
@@ -112,7 +112,7 @@
     <rect>
      <x>0</x>
      <y>20</y>
-     <width>551</width>
+     <width>1081</width>
      <height>62</height>
     </rect>
    </property>
@@ -167,8 +167,8 @@
   <widget class="QPushButton" name="prototypeBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>180</y>
+     <x>550</x>
+     <y>110</y>
      <width>181</width>
      <height>31</height>
     </rect>
@@ -186,8 +186,8 @@
   <widget class="QLineEdit" name="prototypeLe">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>180</y>
+     <x>750</x>
+     <y>110</y>
      <width>311</width>
      <height>31</height>
     </rect>
@@ -208,8 +208,8 @@
   <widget class="QLineEdit" name="textureLe">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>260</y>
+     <x>750</x>
+     <y>190</y>
      <width>311</width>
      <height>31</height>
     </rect>
@@ -227,8 +227,8 @@
   <widget class="QPushButton" name="topBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>220</y>
+     <x>550</x>
+     <y>150</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -246,8 +246,8 @@
   <widget class="QPushButton" name="sideBtn">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>220</y>
+     <x>630</x>
+     <y>150</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -262,31 +262,12 @@
     <string>Side</string>
    </property>
   </widget>
-  <widget class="Line" name="line_3">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>150</y>
-     <width>511</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Lato Light</family>
-     <pointsize>9</pointsize>
-    </font>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="Line" name="line_5">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>340</y>
-     <width>511</width>
+     <y>270</y>
+     <width>1041</width>
      <height>21</height>
     </rect>
    </property>
@@ -304,8 +285,8 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>690</y>
-     <width>511</width>
+     <y>580</y>
+     <width>1041</width>
      <height>21</height>
     </rect>
    </property>
@@ -323,8 +304,8 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>720</y>
-     <width>511</width>
+     <y>610</y>
+     <width>1041</width>
      <height>31</height>
     </rect>
    </property>
@@ -343,8 +324,8 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>750</y>
-     <width>551</width>
+     <y>650</y>
+     <width>1081</width>
      <height>31</height>
     </rect>
    </property>
@@ -390,8 +371,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>220</y>
+     <x>710</x>
+     <y>150</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -412,8 +393,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>220</y>
+     <x>790</x>
+     <y>150</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -431,8 +412,8 @@
   <widget class="QPushButton" name="newPrototypeBtn">
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>220</y>
+     <x>870</x>
+     <y>150</y>
      <width>191</width>
      <height>31</height>
     </rect>
@@ -451,8 +432,8 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>260</y>
-     <width>181</width>
+     <y>190</y>
+     <width>511</width>
      <height>31</height>
     </rect>
    </property>
@@ -473,7 +454,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>370</y>
+     <y>300</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -496,7 +477,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>370</y>
+     <y>300</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -521,7 +502,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>370</y>
+     <y>300</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -546,7 +527,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>410</y>
+     <y>340</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -571,7 +552,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>410</y>
+     <y>340</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -596,7 +577,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>410</y>
+     <y>340</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -619,7 +600,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>450</y>
+     <y>380</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -642,7 +623,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>450</y>
+     <y>380</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -667,7 +648,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>450</y>
+     <y>380</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -692,7 +673,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>490</y>
+     <y>420</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -717,7 +698,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>490</y>
+     <y>420</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -742,7 +723,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>490</y>
+     <y>420</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -765,7 +746,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>530</y>
+     <y>460</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -790,7 +771,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>530</y>
+     <y>460</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -815,7 +796,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>530</y>
+     <y>460</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -838,7 +819,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>570</y>
+     <y>500</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -863,7 +844,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>570</y>
+     <y>500</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -886,7 +867,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>570</y>
+     <y>500</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -911,7 +892,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>610</y>
+     <y>540</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -936,7 +917,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>610</y>
+     <y>540</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -959,7 +940,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>610</y>
+     <y>540</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -984,7 +965,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>370</y>
+     <y>300</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -1009,7 +990,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>410</y>
+     <y>340</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -1034,7 +1015,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>450</y>
+     <y>380</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -1059,7 +1040,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>490</y>
+     <y>420</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -1084,7 +1065,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>530</y>
+     <y>460</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -1109,7 +1090,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>570</y>
+     <y>500</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -1134,7 +1115,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>610</y>
+     <y>540</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -1152,11 +1133,11 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="settingsBtn">
+  <widget class="QPushButton" name="queueBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>650</y>
+     <x>550</x>
+     <y>540</y>
      <width>511</width>
      <height>31</height>
     </rect>
@@ -1166,6 +1147,688 @@
      <family>Lato Light</family>
      <pointsize>9</pointsize>
      <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string>Save Queue</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="methodLe_8">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>300</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="prototypeLe_8">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>300</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textureLe_8">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>300</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removeBtn_8">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>300</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removeBtn_9">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>340</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="methodLe_9">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>340</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="prototypeLe_9">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>340</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textureLe_9">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>340</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textureLe_10">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>380</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="methodLe_10">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>380</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removeBtn_10">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>380</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="prototypeLe_10">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>380</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="prototypeLe_11">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>420</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="methodLe_11">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>420</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removeBtn_11">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>420</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textureLe_11">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>420</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textureLe_12">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>460</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="methodLe_12">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>460</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="prototypeLe_12">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>460</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removeBtn_12">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>460</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="removeBtn_13">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>500</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="methodLe_13">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>500</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="prototypeLe_13">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>500</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="textureLe_13">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>500</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="edPathBtn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>150</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Open Queue</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="edPathLe">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>150</y>
+     <width>311</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Normal</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>554</x>
+     <y>195</y>
+     <width>171</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>Texture To Search For:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="settingsBtn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>230</y>
+     <width>511</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lato Light</family>
+     <pointsize>9</pointsize>
     </font>
    </property>
    <property name="text">

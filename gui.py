@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QText
 from PyQt6 import uic, QtCore
 from PyQt6.QtGui import QIcon
 from compile import detailMultipleElements
-from filemanagement import load_file, save_settings, load_settings, new_file
+from filemanagement import load_file, save_settings, load_settings, new_file, save_elementToDetailList
 import json
 from copy import deepcopy
 
@@ -17,6 +17,10 @@ class MyApp(QWidget):
         self.setWindowTitle("Element Detailer")
         self.setWindowIcon(QIcon('ui_images/appicon.ico'))
         self.setFixedSize(self.size())
+
+        self.prototypePath = "./prototypes"
+        # self.prototypePath = os.path.join(os.getcwd(), "prototypes")
+        self.edPath = ""
 
         # core variables
         self.fileName = ""
@@ -93,6 +97,48 @@ class MyApp(QWidget):
                             "tex": self.textureLe_7,
                             "rmv": self.removeBtn_7,
                         },
+
+                        {
+                            "prt": self.prototypeLe_8,
+                            "mtd": self.methodLe_8,
+                            "tex": self.textureLe_8,
+                            "rmv": self.removeBtn_8,
+                        },
+
+                        {
+                            "prt": self.prototypeLe_9,
+                            "mtd": self.methodLe_9,
+                            "tex": self.textureLe_9,
+                            "rmv": self.removeBtn_9,
+                        },
+
+                        {
+                            "prt": self.prototypeLe_10,
+                            "mtd": self.methodLe_10,
+                            "tex": self.textureLe_10,
+                            "rmv": self.removeBtn_10,
+                        },
+
+                        {
+                            "prt": self.prototypeLe_11,
+                            "mtd": self.methodLe_11,
+                            "tex": self.textureLe_11,
+                            "rmv": self.removeBtn_11,
+                        },
+
+                        {
+                            "prt": self.prototypeLe_12,
+                            "mtd": self.methodLe_12,
+                            "tex": self.textureLe_12,
+                            "rmv": self.removeBtn_12,
+                        },
+
+                        {
+                            "prt": self.prototypeLe_13,
+                            "mtd": self.methodLe_13,
+                            "tex": self.textureLe_13,
+                            "rmv": self.removeBtn_13,
+                        },
                     ]
 
         with open("cssfiles/removestyle.css", "r") as f:
@@ -104,10 +150,12 @@ class MyApp(QWidget):
         self.setMethod("side")
 
 
-        self.fileNameBtn.clicked.connect(lambda: load_file(self, type="fileName"))
-        self.prototypeBtn.clicked.connect(lambda: load_file(self, type="prototype"))
-        self.loadTexVarBtn.clicked.connect(lambda: load_file(self, type="texvar") )
+        self.fileNameBtn.clicked.connect(lambda: load_file(self, type="fileName", relpath=self.dirName, filetype="VMF(*.vmf)"))
+        self.prototypeBtn.clicked.connect(lambda: load_file(self, type="prototype", relpath=self.dirName, filetype="VMF(*.vmf)"))
+        self.loadTexVarBtn.clicked.connect(lambda: load_file(self, type="texvar", relpath=self.dirName, filetype="JSON(*.json)") )
+        self.edPathBtn.clicked.connect(lambda: load_file(self, type="edPath", relpath=self.prototypePath, filetype="ED(*.ed)") )
         self.settingsBtn.clicked.connect(lambda: save_settings(self))
+        self.queueBtn.clicked.connect(lambda: save_elementToDetailList(self))
         self.newPrototypeBtn.clicked.connect(lambda: new_file(self))
 
         self.sideBtn.clicked.connect(lambda: self.setMethod("side"))
@@ -125,6 +173,7 @@ class MyApp(QWidget):
         load_settings( self )
         self.rerenderList()
         self.fileNameLe.setText(os.path.basename(self.fileName))
+        self.edPathLe.setText(self.edPath)
 
     def setTexture( self, texture ):
         self.texture = texture
@@ -194,6 +243,10 @@ class MyApp(QWidget):
                 except Exception:
                     actual_texture = elem["tex"]
                 elem["tex"] = actual_texture
+
+            actualPreElementToDetailList = preElementToDetailList.copy()
+            for elem in actualPreElementToDetailList:
+                elem["prt"] = os.path.join( self.prototypePath, elem["prt"] )
             detailMultipleElements(self.fileName, preElementToDetailList)
             self.compileBtn.setText("Done")
         except Exception:
@@ -234,6 +287,10 @@ class MyApp(QWidget):
         for index, element in enumerate(self.elementToDetailList):
             self.createItem( index, element )
 
+        if len(self.data) == len(self.elementToDetailList):
+            self.addBtn.setEnabled(False)
+        else:
+            self.addBtn.setEnabled(True)
 
 
 if __name__ == '__main__':

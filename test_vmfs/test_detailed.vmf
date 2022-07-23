@@ -19,7 +19,7 @@ viewsettings
 }
 world
 {
-	"id" "1689"
+	"id" "565"
 	"mapversion" "1"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"

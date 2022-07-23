@@ -170,7 +170,7 @@ def cornersAndSidewalls( cornerVMF: VMF, inputVMF: VMF, wallTexture: str ):
             addCorner( insideCornerVMF, commonEdge, dummyVMF )
 
     # Here we will add the new walls
-    prototypeVMF = load_vmf('prototypes/bigside_prototype.vmf')
+    prototypeVMF = load_vmf('prototypes/core/bigside_prototype.vmf')
     prototypeSolid = prototypeVMF.get_solids()[0]
     wallFace = prototypeSolid.get_texture_sides( 'dev/reflectivity_10' )[0]
     wallFace.material = wallTexture.upper()
