@@ -154,6 +154,64 @@ class VerticesToManipulate:
         for vertex in self.verticesDict['-x']:
             vertex.move( xMin, 0, 0 )
 
+    def moveToRamp( self, solid, texture ):
+        texturedSide = solid.get_texture_sides( texture )[0]
+        xMin, xMax, yMin, yMax, zMin, zMax = getDimensionsOfSide( texturedSide )
+        _, _, _, _, zMins, _ = getDimensionsOfSolid( solid )
+
+        def getRampDirection( side, zMin, Zmax ):
+            sideVertices = texturedSide.get_vertices()
+            # we have either two zMax vertices or two zMin vertices in sideVertices
+            maxVerts = [vertex for vertex in sideVertices if vertex.z == zMax]
+            if len(maxVerts) == 2:
+                if maxVerts[0].x == maxVerts[1].x:
+                    if maxVerts[0].x == xMax:
+                        direction = 'x'
+                    else:
+                        direction = '-x'
+                else:
+                    if maxverts[0].y == yMax:
+                        direction = 'y'
+                    else:
+                        direction = '-y'
+            else:
+                minVerts = [vertex for vertex in sideVertices if vertex.z == zMin]
+                if minVerts[0].x == minVerts[1].x:
+                    if minVerts[0].x == xMax:
+                        direction = '-x'
+                    else:
+                        direction = 'x'
+                else:
+                    if minVerts[0].y == yMax:
+                        direction = '-y'
+                    else:
+                        direction = 'y'
+            return direction
+        for vertex in self.verticesDict['y']:
+            vertex.move( 0, yMax, 0 )
+        for vertex in self.verticesDict['-y']:
+            vertex.move( 0, yMin, 0 )
+
+        for vertex in self.verticesDict['x']:
+            vertex.move( xMax, 0, 0 )
+        for vertex in self.verticesDict['-x']:
+            vertex.move( xMin, 0, 0 )
+
+        direction = getRampDirection( texturedSide, zMin, zMax )
+
+        for vertex in self.verticesDict['z']:
+            if direction == 'x':
+                vertex.move( 0, 0, (zMax-zMin)/(xMax-xMin)*(vertex.x - xMin)+zMin )
+            elif direction == 'y':
+                vertex.move( 0, 0, (zMax-zMin)/(yMax-yMin)*(vertex.y - yMin)+zMin )
+            elif direction == '-x':
+                vertex.move( 0, 0, (zMin-zMax)/(xMax-xMin)*(vertex.x - xMin)+zMax )
+            elif direction == '-y':
+                vertex.move( 0, 0, (zMin-zMax)/(yMax-yMin)*(vertex.y - yMin)+zMax )
+
+        for vertex in self.verticesDict['-z']:
+            vertex.move( 0, 0, zMins )
+
 class ElementToDetail:
     def __init__( self, prototypeVMF: str, texture: str, method="side" ):
         self.fileName = prototypeVMF

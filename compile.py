@@ -7,7 +7,7 @@ import os
 def movePrototypeToSolid( solid: Solid, prototypeVMF: VMF, texture: str, method="side" ):
 
     prototypeDuplicate = createDuplicateVMF( prototypeVMF )
-
+    rampCheck = False
     if method == "side" or method == "bigside":
         orientationOfSolid = getOrientationOfSolid( solid, texture )
         if orientationOfSolid is None:
@@ -24,12 +24,15 @@ def movePrototypeToSolid( solid: Solid, prototypeVMF: VMF, texture: str, method=
             rotateSolidAroundZAxis( solidToRotate, orientationToRotationDict[orientationOfSolid] )
     elif method == "top":
         if not checkIfTop( solid, texture ):
-            return None
+            rampCheck = True
 
     prototypeVertexManipulationBoxes = PrototypeVertexManipulationBoxes( prototype=method )
     verticesToManipulate = prototypeVertexManipulationBoxes.createVerticesInBoxDict( prototypeDuplicate )
     verticesToManipulate.moveToZero()
-    verticesToManipulate.moveToSolid( solid )
+    if rampCheck:
+        verticesToManipulate.moveToRamp( solid, texture )
+    else:
+        verticesToManipulate.moveToSolid( solid )
     return prototypeDuplicate
 
 def detailElements( prototypeVMF: VMF, inputVMF: VMF, texture: str, method="side" ):
