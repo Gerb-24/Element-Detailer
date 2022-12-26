@@ -1,4 +1,4 @@
-{
+string = '''{
   "vmf_file": "",
   "vmf_dir": "",
   "ed_file": "",
@@ -8,3 +8,7 @@
   "proto_dir": "",
   "root_dir": ""
 }
+'''
+
+with open( 'settings.json', 'w' ) as f:
+    f.write( string )

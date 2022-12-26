@@ -1,0 +1,22 @@
+[
+  {
+    "ed_proto_file": "umon/umon_ws_prototype.vmf",
+    "ed_type": "side",
+    "ed_texvar": "white"
+  },
+  {
+    "ed_proto_file": "umon/umon_ss_prototype.vmf",
+    "ed_type": "top",
+    "ed_texvar": "green"
+  },
+  {
+    "ed_proto_file": "umon/umon_corner_prototype.vmf",
+    "ed_type": "corner",
+    "ed_texvar": "prototype"
+  },
+  {
+    "ed_proto_file": "umon/umon_wall_prototype.vmf",
+    "ed_type": "bigside",
+    "ed_texvar": "prototype"
+  }
+]

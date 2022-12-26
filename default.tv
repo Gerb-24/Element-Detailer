@@ -1,0 +1,30 @@
+[
+  {
+    "tv_variable": "green",
+    "tv_texture": "orange_dev/dev_measurewall_green03"
+  },
+  {
+    "tv_variable": "white",
+    "tv_texture": "dev/reflectivity_70"
+  },
+  {
+    "tv_variable": "blue",
+    "tv_texture": "CUSTOMDEV/DEV_MEASUREWALL01BLU"
+  },
+  {
+    "tv_variable": "red",
+    "tv_texture": "CUSTOMDEV/DEV_MEASUREWALL01RED"
+  },
+  {
+    "tv_variable": "grey",
+    "tv_texture": "dev/dev_blendmeasure2"
+  },
+  {
+    "tv_variable": "finn",
+    "tv_texture": "cdev/dev_greenwall01"
+  },
+  {
+    "tv_variable": "prototype",
+    "tv_texture": "dev/reflectivity_10"
+  }
+]
