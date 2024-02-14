@@ -5,17 +5,28 @@ A small application to detail jump elements by using a prototype vmf. This is bu
 Latest Release:
 [Element Detailer](https://github.com/Gerb-24/Element-Detailer/releases/latest)
 
+
 ## Usage
-![progress_shot2](https://user-images.githubusercontent.com/61150608/164649282-32b6be87-004f-445e-8e22-ed0132935f0e.png)
-The Application consists of four parts:
-1. In the top part you can open the .vmf file you want to be detailed
-2. The second part is a form, where you can open the detailing prototype, select if this meant to be on the side or on top, and what texture it has to look out for. **Note that:** the buttons "jurf", "ramp" and "Create New Prototype" currently dont do anything. Texture variables will be explained in a section below.
-3. In the third part you can view the settings that you added to the queue and you are able to remove them. To be able to load the settings automatically when restarting the application, you can save the settings with the "Save Settings" button.
-4. The fourth part is the compile button. This will create a new vmf file in the same folder as your selected vmf is located. This file will be called (your_selected_vmf)_detailed.vmf. **Note that:** Currently the code looks for an enitity made out of solids in the prototype vmf. So these should be a func_detail/func_illusionary etc.
+![ed-example](https://github.com/Gerb-24/Element-Detailer/assets/61150608/1e700434-c882-4397-b745-4768b8dc1298)
+The Application consists of two main sections: The detailing queue and the texture variables
 
-#### Texture Variables
-In part 2 we saw the "Load Texture Variables" button. With this we can open a texture variables file, which lets you write a short name to use instead of the longer actual texture name. To get a texture variable file, and to get the associated application to change them, see [Texture Variables](https://github.com/Gerb-24/Texture-Variables)
+### Detailing Queue
+On the right side we can open a .ed file, which gives a queue of detailing operations. A detailing operation consists of the following parts:
+1. A prototype vmf: this is the vmf that we vertex manipulate into the position of our jump element.
+2. the type of element/prototype. Currently, this can be Top, Side, Corner or Bigside.
+3. The texture variable/texture name. If the input does not correspond to a texture variable, then we its taken to be a texture name.
+4. A button to remove the operation.
 
+Using "save queue", you can save your detailing queue as a .ed file.
+We can then detail the our chosen vmf in "Open vmf to detail" and click "Compile". This will create a new vmf file in the same folder as your selected vmf is located. This file will be called (your_selected_vmf)_detailed.vmf. **Note that:** Currently the code looks for an enitity made out of solids in the prototype vmf. So these should be a func_detail/func_illusionary etc.
+
+
+### Texture Variables
+When we want to share our .ed files, we would not like to have to change the dev texture names of the other mapper, to what we use for creating the alpha versions of our map. With texture variables we can give our prefered textures standardized (shorter) names, and use these in the .ed file. A texture variable consists of the following parts:
+1. The variable name.
+2. The texture name.
+
+We can then save our texture variables to a .tv file. This way we can work with the dev preferences of other, by using their .tv before doing the compile.
 
 ## Licenses
 The GUI part of this project, i.e. gui.py, filemanagement.py etc use the GPLv3 License as they use PyQt6
