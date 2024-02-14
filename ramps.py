@@ -24,7 +24,7 @@ for solid in ramp_vmf.get_solids():
                 else:
                     direction = '-x'
             else:
-                if maxverts[0].y == yMax:
+                if maxVerts[0].y == yMax:
                     direction = 'y'
                 else:
                     direction = '-y'
